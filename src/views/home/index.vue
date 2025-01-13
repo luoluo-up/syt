@@ -40,7 +40,7 @@ let pageNo = ref<number>(1)
 // 一页展示几条数据
 let pageSize = ref<number>(10)
 // 存储已有的医院数据
-let hasHospitalArr = ref([]);
+let hasHospitalArr = ref<any[]>([]);
 // 存储医院总个数
 let total = ref<number>(0)
 //组件挂载完毕发一次请求
