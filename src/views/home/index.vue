@@ -13,7 +13,7 @@
                 <Region />
                 <!-- 展示医院信息的组件 -->
                 <div class="hospital">
-                    <Card class="item" v-for="(item, index) in hasHospitalArr" :key="item.id" :hospitalInfo="item" />
+                    <Card class="item" v-for="item in hasHospitalArr" :key="item._id" :hospitalInfo="item" />
                     <!-- 分页器 -->
                     <el-pagination style="width: 100%;" v-model:current-page="pageNo" v-model:page-size="pageSize"
                         :page-sizes="[10, 20, 30, 40]" :background="true"
@@ -50,7 +50,7 @@ onMounted(() => {
 
 // 获取已有的医院数据接口
 const getHospitalInfo = async () => {
-    const res = await reqHospital(pageNo.value, pageSize.value)
+    const res: any = await reqHospital(pageNo.value, pageSize.value)
     console.log(res);
 
     if (res.code == 200) {
