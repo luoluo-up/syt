@@ -2,7 +2,7 @@
     <div class="top">
         <div class="content">
             <!-- 左侧 -->
-            <div class="left">
+            <div class="left" @click="$router.push('/home')">
                 <img src="../assets/images/avatar.jpg" alt="" srcset="">
                 <p>尚医通 预约挂号统一平台</p>
             </div>

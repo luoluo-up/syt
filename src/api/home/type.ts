@@ -12,6 +12,10 @@ export interface Hospital {
   level: string;
   introduce: string;
   img: string;
+  hostype: string;
+  districtCode: string;
+  district: string;
+  hoscode: string;
 }
 
 // 获取已有医院接口返回的数据类型
@@ -37,4 +41,7 @@ export type HospitalLevelAndRegionArr = HospitalLevelAndRegion[];
 //获取等级或医院地区接口返回数据类型
 export interface HospitalLevelAndRegionResponseData extends ResponseData {
   result: HospitalLevelAndRegionArr;
+}
+export interface HospitalSearchResponseData extends ResponseData {
+  result: Hospital[];
 }

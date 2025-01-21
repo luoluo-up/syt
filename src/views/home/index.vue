@@ -8,11 +8,11 @@
         <el-row :gutter="20">
             <el-col :span="20">
                 <!-- 等级子组件 -->
-                <Level />
+                <Level @getLevel="getLevel" />
                 <!-- 地区 -->
-                <Region />
+                <Region @getRegion="getRegion" />
                 <!-- 展示医院信息的组件 -->
-                <div class="hospital">
+                <div class="hospital" v-if="hasHospitalArr.length > 0">
                     <Card class="item" v-for="item in hasHospitalArr" :key="item._id" :hospitalInfo="item" />
                     <!-- 分页器 -->
                     <el-pagination style="width: 100%;" v-model:current-page="pageNo" v-model:page-size="pageSize"
@@ -20,6 +20,7 @@
                         layout="prev, pager, next, jumper,->,sizes,total" :total="total" @current-change="currentChange"
                         @size-change="sizeChange" />
                 </div>
+                <el-empty v-else description="暂无医院数据" />
             </el-col>
             <el-col :span="4"></el-col>
         </el-row>
@@ -45,6 +46,9 @@ let pageSize = ref<number>(10)
 let hasHospitalArr = ref<Hospital[]>([]);
 // 存储医院总个数
 let total = ref<number>(0)
+// 存储医院的等级和地区数据
+let hostype = ref<string>('')
+let districtCode = ref<string>('')
 //组件挂载完毕发一次请求
 onMounted(() => {
     getHospitalInfo()
@@ -52,9 +56,7 @@ onMounted(() => {
 
 // 获取已有的医院数据接口
 const getHospitalInfo = async () => {
-    const res: HospitalResponseData = await reqHospital(pageNo.value, pageSize.value)
-    console.log(res);
-
+    const res: HospitalResponseData = await reqHospital(pageNo.value, pageSize.value, hostype.value, districtCode.value)
     if (res.code == 200) {
         // 存储已有的医院数据
         hasHospitalArr.value = res.result.list
@@ -68,6 +70,17 @@ const currentChange = () => {
 }
 // 分页器页容量发生的回调
 const sizeChange = () => {
+    getHospitalInfo()
+}
+
+// 获取等级子组件传递过来的数据
+const getLevel = (level: string) => {
+    hostype.value = level
+    getHospitalInfo()
+}
+// 获取地区子组件传递过来的数据
+const getRegion = (region: string) => {
+    districtCode.value = region
     getHospitalInfo()
 }
 </script>

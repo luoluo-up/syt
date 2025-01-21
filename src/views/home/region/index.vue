@@ -35,7 +35,10 @@ const getHospitalLevelAndRegion = async () => {
 // 点击地区改变地区高亮
 const changeRegion = (region: string) => {
     RegionFlag.value = region
+    // 触发父组件的getRegion方法
+    $emit('getRegion', region)
 }
+let $emit = defineEmits(['getRegion'])
 </script>
 <style scoped lang="scss">
 .region {

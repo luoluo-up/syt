@@ -1,7 +1,8 @@
 import axios from "axios";
 import { ElMessage } from "element-plus";
 const request = axios.create({
-  baseURL: "https://syt-api.ohsehun.xyz/hospital",
+  baseURL: import.meta.env.VITE_API_URL,
+  // baseURL: "http://localhost:3000/hospital",
   timeout: 5000,
 });
 

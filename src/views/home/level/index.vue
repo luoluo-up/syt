@@ -26,7 +26,6 @@ onMounted(async () => {
 // 获取医院等级和地区数据
 const getHospitalLevelAndRegion = async () => {
     const result: HospitalLevelAndRegionResponseData = await reqHospitalLevelAndRegion("hostype")
-    console.log(result)
     if (result.code === 200) {
         hospitalLevelAndRegion.value = result.result
     }
@@ -34,7 +33,10 @@ const getHospitalLevelAndRegion = async () => {
 // 点击等级改变等级高亮
 const changeLevel = (level: string) => {
     activeFlag.value = level
+    // 触发父组件的getLevel方法
+    $emit('getLevel', level)
 }
+let $emit = defineEmits(['getLevel'])
 </script>
 <style scoped lang="scss">
 .level {
