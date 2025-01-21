@@ -31,16 +31,17 @@ import Search from './search/index.vue'
 import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
+import type { Hospital } from '@/api/home/type'
 // 引入组合式API函数
 import { onMounted, ref } from 'vue'
-import { reqHospital } from '@/api/home'
+import { reqHospital, HospitalResponseData } from '@/api/home'
 //分页器需要的数据
 //分页器当前页码
 let pageNo = ref<number>(1)
 // 一页展示几条数据
 let pageSize = ref<number>(10)
 // 存储已有的医院数据
-let hasHospitalArr = ref<any[]>([]);
+let hasHospitalArr = ref<Hospital[]>([]);
 // 存储医院总个数
 let total = ref<number>(0)
 //组件挂载完毕发一次请求
@@ -50,7 +51,7 @@ onMounted(() => {
 
 // 获取已有的医院数据接口
 const getHospitalInfo = async () => {
-    const res: any = await reqHospital(pageNo.value, pageSize.value)
+    const res: HospitalResponseData = await reqHospital(pageNo.value, pageSize.value)
     console.log(res);
 
     if (res.code == 200) {

@@ -4,20 +4,37 @@
         <div class="content">
             <div class="left">等级</div>
             <ul class="hospital">
-                <li class="active">全部</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
+                <li :class="{ active: activeFlag === '' }" @click="changeLevel('')">全部</li>
+                <li v-for="item in hospitalLevelAndRegion" :key="item.value"
+                    :class="{ active: activeFlag === item.value }" @click="changeLevel(item.value)">{{ item.name }}</li>
             </ul>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-
+import { onMounted, ref } from 'vue'
+import type { HospitalLevelAndRegionResponseData, HospitalLevelAndRegionArr } from '@/api/home/type'
+import { reqHospitalLevelAndRegion } from '@/api/home'
+// 存储医院等级和地区数据
+const hospitalLevelAndRegion = ref<HospitalLevelAndRegionArr>([])
+//控制医院等级高亮响应式数据
+let activeFlag = ref<string>('');
+// 组件挂载完毕发一次请求
+onMounted(async () => {
+    getHospitalLevelAndRegion()
+})
+// 获取医院等级和地区数据
+const getHospitalLevelAndRegion = async () => {
+    const result: HospitalLevelAndRegionResponseData = await reqHospitalLevelAndRegion("hostype")
+    console.log(result)
+    if (result.code === 200) {
+        hospitalLevelAndRegion.value = result.result
+    }
+}
+// 点击等级改变等级高亮
+const changeLevel = (level: string) => {
+    activeFlag.value = level
+}
 </script>
 <style scoped lang="scss">
 .level {

@@ -16,6 +16,8 @@ request.interceptors.response.use(
     return res.data;
   },
   (error) => {
+    console.log(error);
+
     let status = error.response.status;
     switch (status) {
       case 404:
