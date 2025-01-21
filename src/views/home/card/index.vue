@@ -54,7 +54,7 @@
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const goDetail = () => {
-    router.push(`/hospital/${hospitalInfo.hoscode}`)
+    router.push(`/hospital`)
 }
 defineProps(['hospitalInfo'])
 </script>
