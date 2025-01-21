@@ -34,7 +34,8 @@ import Card from './card/index.vue'
 import type { Hospital } from '@/api/home/type'
 // 引入组合式API函数
 import { onMounted, ref } from 'vue'
-import { reqHospital, HospitalResponseData } from '@/api/home'
+import type { HospitalResponseData } from '@/api/home/type'
+import { reqHospital } from '@/api/home'
 //分页器需要的数据
 //分页器当前页码
 let pageNo = ref<number>(1)
